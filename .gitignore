@@ -1,0 +1,38 @@
+# Python / Virtual Environments
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+*.egg-info/
+pip-freeze.txt
+pip-selfcheck.json
+
+# Flask specific
+instance/
+
+# Secrets - VERY IMPORTANT
+.env
+
+# Uploads (Local - good to keep ignoring even if using Cloudinary)
+uploads/
+
+# IDE / Editor specific
+.idea/
+.vscode/
+*.swp
+*~
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Other common files
+*.log
+*.pot
+*.pytx  
+venv/
+.env
+*.pyc
+__pycache__/

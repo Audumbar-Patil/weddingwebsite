@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ details.title }}{% endblock %}
+
+{% block head_extra %}
+{# Check if bg_image_path exists and is not empty #}
+{% if details.bg_image_path %}
+<style>
+    body {
+      /* Generate the URL here using url_for */
+      background: url("{{ url_for('static', filename=details.bg_image_path) }}") no-repeat center center fixed;
+      background-size: cover;
+    }
+    .event-content {
+       background-color: rgba(255, 255, 255, 0.85);
+       padding: 2rem;
+       border-radius: 8px;
+       margin-top: 3rem;
+       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+</style>
+{% else %}
+ {# Optional: Add a default background or style if no image path is set #}
+ <style>
+     .event-content {
+         background-color: #f8f9fa; /* Light gray background */
+         padding: 2rem;
+         border-radius: 8px;
+         margin-top: 3rem;
+         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+     }
+ </style>
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+<div class="container my-5">
+    <div class="event-content"> {# Wrapper for content #}
+        <h1 class="text-center mb-4 cursive">{{ details.title }}</h1>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <p class="lead text-center mb-4">{{ details.description }}</p>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <p><strong><i class="bi bi-calendar-event"></i> Date:</strong> {{ details.date }}</p>
+                <p><strong><i class="bi bi-clock"></i> Time:</strong> {{ details.time }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong><i class="bi bi-geo-alt"></i> Venue:</strong> {{ details.venue }}</p>
+                {% if details.venue_maps_link %}
+                <p><a href="{{ details.venue_maps_link }}" target="_blank" class="btn btn-sm btn-outline-secondary">View Map</a></p>
+                {% endif %}
+            </div>
+        </div>
+
+        <hr>
+
+        <h3 class="mt-4 mb-3 text-center">Share Your Moments</h3>
+        <p class="text-center text-muted">Upload your photos and videos from the {{ details.title }}!</p>
+
+        <form action="{{ url_for('upload_file', event_name=event_name) }}"
+              method="post"
+              enctype="multipart/form-data"
+              class="mb-4 p-4 border rounded bg-light">
+            <div class="mb-3">
+                <label for="file" class="form-label">Select file (Images or Videos):</label>
+                <input class="form-control" type="file" id="file" name="file" accept="image/*,video/*" required>
+                 <!-- Use the variable passed from the route -->
+                 <div class="form-text">Max file size: 500MB. Allowed types: {{ ALLOWED_EXTENSIONS_STR }}</div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-success btn-lg">
+                    <i class="bi bi-cloud-upload"></i> Upload File
+                </button>
+            </div>
+        </form>
+
+        <div class="text-center mt-4">
+             <a href="{{ url_for('main_page') }}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left-circle"></i> Back to All Events
+             </a>
+        </div>
+     </div> {# End event-content wrapper #}
+</div>
+
+<!-- Include Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+{% endblock %}

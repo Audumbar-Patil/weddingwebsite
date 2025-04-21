@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block head_extra %}
+<style>
+    /* Style for the welcome page background and centering */
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+    .welcome-container {
+        /* Use the URL passed from the view function */
+        background: url("{{ welcome_bg_url }}") no-repeat center center fixed;
+        background-size: cover;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+    }
+    /* ... rest of the styles ... */
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="welcome-container">
+    <div class="welcome-content">
+        <h1 class="cursive">Welcome to Our Wedding Celebration!</h1>
+        <p class="lead mb-4">We're so excited to share our special moments with you.</p>
+        <a href="{{ url_for('main_page') }}" class="btn btn-light btn-lg btn-continue">
+            Continue
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}{# Hide default footer on welcome page #}{% endblock %}
