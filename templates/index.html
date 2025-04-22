@@ -4,34 +4,115 @@
 
 {% block head_extra %}
 <style>
-    /* Style for the welcome page background and centering */
-    body, html {
-        height: 100%;
-        margin: 0;
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(100px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
-    .welcome-container {
-        /* Use the URL passed from the view function */
-        background: url("{{ welcome_bg_url }}") no-repeat center center fixed;
+
+    @keyframes fadeZoomIn {
+        0% {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    /* Fullscreen Intro with BG Image */
+    .intro {
+        background-image: url('{{ url_for('static', filename='img/poster.jpg') }}');
         background-size: cover;
-        min-height: 100vh;
+        background-position: center;
+        height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
+        position: relative;
         color: white;
+        
     }
-    /* ... rest of the styles ... */
+
+    .intro h1 {
+        
+        font-size: 2.5rem;
+        animation: fadeZoomIn 2.5s ease-out forwards;
+        opacity: 0;
+        z-index: 2;
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+    }
+
+    .intro::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: rgba(0, 0, 0, 0.4); /* Optional dark overlay */
+        z-index: 1;
+    }
+
+    .welcome-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: black;
+        padding: 2rem;
+    }
+
+    .welcome-content h1,
+    .welcome-content p,
+    .welcome-content a {
+        opacity: 0;
+        animation: fadeInUp 5s ease-out forwards;
+    }
+
+    .welcome-content h1 {
+        animation-delay: 0.2s;
+    }
+
+    .welcome-content p {
+        animation-delay: 0.5s;
+    }
+
+    .welcome-content a {
+        animation-delay: 0.8s;
+    }
+
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="welcome-container">
-    <div class="welcome-content">
-        <h1 class="cursive">Welcome to Our Wedding Celebration!</h1>
-        <p class="lead mb-4">We're so excited to share our special moments with you.</p>
-        <a href="{{ url_for('main_page') }}" class="btn btn-light btn-lg btn-continue">
-            Continue
-        </a>
+<div>
+    <!-- Intro Section with background image and animated text -->
+    <div class="intro">
+        <h1>#Shantana #Rakshit</h1>
+    </div>
+
+    <!-- Welcome Section -->
+    <div class="welcome-container">
+        <div class="welcome-content">
+            <h1 class="cursive">Welcome to Our Wedding Celebration!</h1>
+            <p class="lead mb-4">We're so excited to share our special moments with you.</p>
+            <a href="{{ url_for('main_page') }}" class="btn btn-light btn-lg btn-continue">
+                Continue
+            </a>
+        </div>
     </div>
 </div>
 {% endblock %}
