@@ -72,20 +72,20 @@
         <p class="text-center text-muted">Upload your photos and videos from the {{ details.title }}!</p>
 
         <form action="{{ url_for('upload_file', event_name=event_name) }}"
-              method="post"
-              enctype="multipart/form-data"
-              class="mb-4 p-4 border rounded bg-light">
-            <div class="mb-3">
-                <label for="file" class="form-label">Select file (Images or Videos):</label>
-                <input class="form-control" type="file" id="file" name="file" accept="image/*,video/*" required>
-                 <!-- Use the variable passed from the route -->
-                 <div class="form-text">Max file size: 500MB. Allowed types: {{ ALLOWED_EXTENSIONS_STR }}</div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-success btn-lg">
-                    <i class="bi bi-cloud-upload"></i> Upload File
-                </button>
-            </div>
-        </form>
+      method="post"
+      enctype="multipart/form-data"
+      class="mb-4 p-4 border rounded bg-light">
+    <div class="mb-3">
+        <label for="file" class="form-label">Select file (Images or Videos):</label>
+        <input class="form-control" type="file" id="file" name="file" accept="image/*,video/*" required>
+        <div class="form-text">Max file size: 500MB. Allowed types: {{ ALLOWED_EXTENSIONS_STR }}</div>
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-success btn-lg">
+            <i class="bi bi-cloud-upload"></i> Upload File
+        </button>
+    </div>
+</form>
 
         <div class="text-center mt-4">
              <a href="{{ url_for('main_page') }}" class="btn btn-secondary">

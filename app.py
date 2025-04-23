@@ -59,7 +59,9 @@ event_details = {
         "time": "11:00 AM onwards",
         "venue": "The Grand Hall - Garden Area",
         "venue_maps_link": "https://maps.google.com/?q=...",
-        "bg_image_path": "img/haldi_bg.jpg"
+        "bg_image_path": "img/haldi_bg.jpg",        # Used in event.html
+        "card_image_path": "img/haldi_card.jpg",
+        "details": "The engagement ceremony marks the formal agreement to wed. Historically, it involved the exchange of rings or gifts as a promise of marriage. Our ceremony will blend traditional customs with modern celebration."
     },
     "sangeet": {
         "title": "Sangeet Night",
@@ -68,7 +70,9 @@ event_details = {
         "time": "7:00 PM onwards",
         "venue": "The Crystal Ballroom",
         "venue_maps_link": "https://maps.google.com/?q=...",
-        "bg_image_path": "img/sangeet_bg.jpg"
+        "bg_image_path": "img/sangeet_bg.jpg",
+        "card_image_path": "img/sangeet_card.jpg",
+        "details": "The engagement ceremony marks the formal agreement to wed. Historically, it involved the exchange of rings or gifts as a promise of marriage. Our ceremony will blend traditional customs with modern celebration."
     },
     "wedding": {
         "title": "Wedding Ceremony & Reception",
@@ -77,17 +81,22 @@ event_details = {
         "time": "5:00 PM (Ceremony), 7:30 PM (Reception)",
         "venue": "Oceanview Banquet Center",
         "venue_maps_link": "https://maps.google.com/?q=...",
-        "bg_image_path": "img/wedding_bg.jpg"
+        "bg_image_path": "img/wedding_bg.jpg",
+        "card_image_path": "img/wedding_card.jpg",
+        "details": "The engagement ceremony marks the formal agreement to wed. Historically, it involved the exchange of rings or gifts as a promise of marriage. Our ceremony will blend traditional customs with modern celebration."
     }
 }
 
 # --- Routes ---
 @app.route('/')
 def index():
-    # No need to create local upload folders anymore
-    welcome_bg = url_for('static', filename='img/welcome_bg.jpg')
-    return render_template('index.html', welcome_bg_url=welcome_bg)
-
+    # Pass the event_details dictionary to the template with the key 'events'
+    # The 'welcome_bg_url' variable seems unused in your index.html template,
+    # but we can leave it for now or remove it if definitely not needed.
+    welcome_bg = url_for('static', filename='img/welcome_bg.jpg') # Or relevant image
+    return render_template('index.html',
+                           welcome_bg_url=welcome_bg,
+                           events=event_details)
 @app.route('/main')
 def main_page():
     return render_template('main.html', events=event_details)

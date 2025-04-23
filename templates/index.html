@@ -35,20 +35,17 @@
     /* Fullscreen Intro with BG Image */
     .intro {
         background-image: url('{{ url_for('static', filename='img/poster.jpg') }}');
-        background-size: cover;
         background-position: center;
-        height: 100vh;
+        height: 120vh;
+        width: 100vw;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
-        position: relative;
         color: white;
-        
     }
 
     .intro h1 {
-        
         font-size: 2.5rem;
         animation: fadeZoomIn 2.5s ease-out forwards;
         opacity: 0;
@@ -56,23 +53,37 @@
         text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
     }
 
-    .intro::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-color: rgba(0, 0, 0, 0.4); /* Optional dark overlay */
-        z-index: 1;
-    }
-
     .welcome-container {
+        position: relative;
         min-height: 100vh;
+        background-image: url(/static/img/bgimg.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
-        color: black;
+        color: white;
         padding: 2rem;
+        overflow: hidden;
+    }
+
+    .welcome-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Shadowed dark overlay */
+        z-index: 1;
+    }
+
+    /* Ensure welcome content appears above the overlay */
+    .welcome-content {
+        position: relative;
+        z-index: 2;
     }
 
     .welcome-content h1,
@@ -94,6 +105,15 @@
         animation-delay: 0.8s;
     }
 
+    /* Event Cards Section */
+    .event-card {
+        margin-top: 3rem;
+    }
+
+    .event-card img {
+        height: 180px;
+        object-fit: cover;
+    }
 </style>
 {% endblock %}
 
@@ -101,20 +121,50 @@
 <div>
     <!-- Intro Section with background image and animated text -->
     <div class="intro">
-        <h1>#Shantana #Rakshit</h1>
+        
     </div>
 
     <!-- Welcome Section -->
     <div class="welcome-container">
         <div class="welcome-content">
-            <h1 class="cursive">Welcome to Our Wedding Celebration!</h1>
-            <p class="lead mb-4">We're so excited to share our special moments with you.</p>
-            <a href="{{ url_for('main_page') }}" class="btn btn-light btn-lg btn-continue">
-                Continue
-            </a>
+            <h1 class="cursive">We're so excited to share our special moments with you.</h1>
+            <p class="lead mb-4">Take a look at our upcoming wedding events!</p>
         </div>
     </div>
 </div>
+
+<!-- Event Cards Section -->
+<div class="container mt-5 event-card">
+    <h1 class="text-center mb-5 cursive">Our Wedding Events</h1>
+
+    <div class="row justify-content-center g-4"> <!-- g-4 adds gaps between columns -->
+
+        {% for event_key, event_data in events.items() %}
+        <div class="col-lg-4 col-md-6 mb-4"> <!-- Responsive columns -->
+            <div class="card h-100 text-center shadow-sm">
+                {% if event_data.card_image_path %}
+                <img src="{{ url_for('static', filename=event_data.card_image_path) }}" class="card-img-top" alt="{{ event_data.title }} card image" style="height: 180px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title cursive fs-3">{{ event_data.title }}</h5>
+                    <p class="card-text">
+                        <strong>Date:</strong> {{ event_data.date }} <br>
+                        <strong>Time:</strong> {{ event_data.time }} <br>
+                        <strong>Venue:</strong> {{ event_data.venue }}
+                    </p>
+                    <div class="mt-auto">
+                        <a href="{{ url_for('show_event', event_name=event_key) }}" class="btn btn-outline-primary">
+                            View Details & Upload Photos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
 {% endblock %}
 
-{% block footer %}{# Hide default footer on welcome page #}{% endblock %}
+{% block footer %}{# Optional: Footer content here #}{% endblock %}

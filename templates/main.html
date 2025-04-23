@@ -8,14 +8,13 @@
 
     <div class="row justify-content-center g-4"> <!-- g-4 adds gaps between columns -->
 
-        {# The loop starts HERE. event_data is defined only INSIDE this loop #}
         {% for event_key, event_data in events.items() %}
         <div class="col-lg-4 col-md-6 mb-4"> <!-- Responsive columns -->
             <div class="card h-100 text-center shadow-sm">
 
-                {# The check for bg_image_path must be INSIDE the loop #}
-                {% if event_data.bg_image_path %}
-                <img src="{{ url_for('static', filename=event_data.bg_image_path) }}" class="card-img-top" alt="{{ event_data.title }} background" style="height: 180px; object-fit: cover;">
+                {# Use card_image_path instead of bg_image_path here #}
+                {% if event_data.card_image_path %}
+                <img src="{{ url_for('static', filename=event_data.card_image_path) }}" class="card-img-top" alt="{{ event_data.title }} card image" style="height: 180px; object-fit: cover;">
                 {% endif %}
 
                 <div class="card-body d-flex flex-column">
@@ -25,7 +24,7 @@
                         <strong>Time:</strong> {{ event_data.time }} <br>
                         <strong>Venue:</strong> {{ event_data.venue }}
                     </p>
-                    <div class="mt-auto"> <!-- Pushes button to the bottom -->
+                    <div class="mt-auto">
                        <a href="{{ url_for('show_event', event_name=event_key) }}" class="btn btn-outline-primary">
                            View Details & Upload Photos
                        </a>
@@ -33,7 +32,7 @@
                 </div>
             </div>
         </div>
-        {% endfor %} {# The loop ends here #}
+        {% endfor %}
 
     </div>
 </div>
