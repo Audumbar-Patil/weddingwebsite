@@ -54,56 +54,71 @@
     }
 
     .welcome-container {
-        position: relative;
-        min-height: 100vh;
-        background-image: url(/static/img/bgimg.jpg);
-        background-size: cover;
-        background-repeat: no-repeat;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        color: white;
-        padding: 2rem;
-        overflow: hidden;
-    }
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 2rem;
+    overflow: hidden;
+}
 
-    .welcome-container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.5); /* Shadowed dark overlay */
-        z-index: 1;
-    }
+/* Background video */
+.welcome-container .bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
 
-    /* Ensure welcome content appears above the overlay */
-    .welcome-content {
-        position: relative;
-        z-index: 2;
-    }
+/* Optional overlay for darkening the video */
+.welcome-container .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
 
-    .welcome-content h1,
+.welcome-content {
+    position: relative;
+    z-index: 2;
+}
+
+.welcome-content h1,
+.welcome-content p,
+.welcome-content a {
+    opacity: 0;
+    animation: fadeInUp 5s ease-out forwards;
+}
+
+.welcome-content h1 {
+    animation-delay: 0.2s;
+}
+
+.welcome-content p {
+    animation-delay: 0.5s;
+}
+
+.welcome-content a {
+    animation-delay: 0.8s;
+}
+
     .welcome-content p,
     .welcome-content a {
         opacity: 0;
         animation: fadeInUp 5s ease-out forwards;
     }
 
-    .welcome-content h1 {
-        animation-delay: 0.2s;
-    }
-
-    .welcome-content p {
-        animation-delay: 0.5s;
-    }
-
-    .welcome-content a {
-        animation-delay: 0.8s;
-    }
 
     /* Event Cards Section */
     .event-card {
@@ -126,13 +141,20 @@
 
     <!-- Welcome Section -->
     <div class="welcome-container">
+        <video autoplay muted loop playsinline class="bg-video">
+            <source src="/static/img/bg.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    
+        <!-- Optional dark overlay -->
+        <div class="video-overlay"></div>
+    
         <div class="welcome-content">
             <h1 class="cursive">We're so excited to share our special moments with you.</h1>
             <p class="lead mb-4">Take a look at our upcoming wedding events!</p>
         </div>
     </div>
-</div>
-
+    
 <!-- Event Cards Section -->
 <div class="container mt-5 event-card">
     <h1 class="text-center mb-5 cursive">Our Wedding Events</h1>
