@@ -4,144 +4,116 @@
 
 {% block head_extra %}
 <style>
-    
-        /* --- Make welcome-content a positioning context --- */
-        .welcome-content {
+    /* --- ADD THIS RULE --- */
+    body {
+        overflow-x: hidden; /* Prevent horizontal scrollbars */
+    }
+
+    /* --- Make welcome-content a positioning context --- */
+    .welcome-content {
         position: relative; /* Needed for absolute positioning of butterflies */
         z-index: 2;         /* Ensure text stays above butterflies/overlay */
+        /* Add some padding for better spacing, especially on mobile */
+        padding-left: 1rem;
+        font-size: 2.6rem;
+        padding-right: 1rem;
+        padding-top: 1rem;
     }
 
     /* --- Butterfly Animation --- */
     @keyframes flyUpFlutter {
-        0% {
-            opacity: 0;
-            transform: translateY(30px) translateX(0px) rotate(0deg) scale(0.8);
-        }
-        20% { /* Appear quickly */
-            opacity: 1;
-            transform: translateY(0px) translateX(-5px) rotate(-10deg) scale(1);
-        }
-        50% {
-             transform: translateY(-40px) translateX(5px) rotate(10deg) scale(1.1);
-        }
-        80% {
-            opacity: 1;
-             transform: translateY(-80px) translateX(-5px) rotate(-5deg) scale(1);
-        }
-        100% {
-            opacity: 0;
-            transform: translateY(-120px) translateX(0px) rotate(5deg) scale(0.5); /* Fly higher and fade out */
-        }
+        0% { opacity: 0; transform: translateY(30px) translateX(0px) rotate(0deg) scale(0.8); }
+        20% { opacity: 1; transform: translateY(0px) translateX(-5px) rotate(-10deg) scale(1); }
+        50% { transform: translateY(-40px) translateX(5px) rotate(10deg) scale(1.1); }
+        80% { opacity: 1; transform: translateY(-80px) translateX(-5px) rotate(-5deg) scale(1); }
+        100% { opacity: 0; transform: translateY(-120px) translateX(0px) rotate(5deg) scale(0.5); }
     }
 
     /* --- Butterfly Container & Butterflies --- */
     .butterfly-container {
         position: absolute;
-        bottom: -20px; /* Start slightly below the text's initial position */
+        bottom: -20px;
         left: 50%;
         transform: translateX(-50%);
-        width: 1500px; /* Adjust width as needed */
-        height: 80px; /* Adjust height as needed */
-        z-index: 0; /* Below the text content (z-index 2) */
-        pointer-events: none; /* Don't block clicks */
+        /* --- CHANGE THIS --- */
+        /* width: 1500px; */ /* This caused overflow */
+        width: 100%;      /* Make it relative to parent */
+        max-width: 1500px; /* Optionally keep max-width for desktop look if needed */
+        height: 100px; /* Adjusted height slightly */
+        z-index: 0;
+        pointer-events: none;
     }
 
     .butterfly {
         position: absolute;
-        width: 250px; /* Size of butterfly */
+        width: 250px;
         height: 250px;
-        /* !!! IMPORTANT: Make sure you have this image !!! */
         background-image: url('{{ url_for('static', filename='img/butterfly.jpg') }}');
         background-size: contain;
         background-repeat: no-repeat;
-        opacity: 0; /* Start hidden */
-        animation: flyUpFlutter 3.5s ease-out forwards; /* Duration matches text fade roughly */
+        opacity: 0;
+        animation: flyUpFlutter 3.5s ease-out forwards;
     }
 
-    /* Position and delay individual butterflies */
+    /* Position and delay individual butterflies (percentages now work better with width: 100%) */
     .butterfly.b1 {
         top: 60%;
         left: 15%;
-        animation-delay: 0.6s; /* Start slightly after text starts moving (adjust delay based on fadeInUp) */
+        animation-delay: 0.6s;
     }
-
     .butterfly.b2 {
         top: 40%;
         left: 45%;
-        animation-delay: 0.8s; /* Stagger start times */
-        transform: scale(1.1); /* Slightly bigger */
+        animation-delay: 0.8s;
+        transform: scale(1.1); /* Original transform */
     }
-
     .butterfly.b3 {
         top: 65%;
         left: 75%;
         animation-delay: 0.7s;
-        transform: scale(0.9); /* Slightly smaller */
+        transform: scale(0.9); /* Original transform */
     }
+
     @keyframes fadeInUp {
-        0% {
-            opacity: 0;
-            transform: translateY(100px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        0% { opacity: 0; transform: translateY(100px); }
+        100% { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes fadeZoomIn {
-        0% {
-            opacity: 0;
-            transform: scale(0.8);
-        }
-        100% {
-            opacity: 1;
-            transform: scale(1);
-        }
+        0% { opacity: 0; transform: scale(0.8); }
+        100% { opacity: 1; transform: scale(1); }
     }
 
-    body, html {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    width: 100%;
-    background-image: url("/static/img/bgimg.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    text-align: center;
-    align-items:center;
-}
-
-@media (max-width: 700px) {
+    /* Keep original body/html styles, but ensure no fixed width */
     body, html {
         margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    width: 100%;
-    background-image: url("/static/img/bgimg.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    text-align: center;
-    align-items:center;
-        
+        padding: 0;
+        min-height: 100vh;
+        width: 100%; /* Use 100%, not vw */
+        background-image: url("/static/img/bgimg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        text-align: center;
+        /* align-items:center; removed as it's not valid here */
     }
-}
 
-    /* Fullscreen Intro with BG Image */
+    /* --- Fullscreen Intro with BG Image --- */
     .intro {
         background-image: url('{{ url_for('static', filename='img/poster.jpg') }}');
         background-position: center;
         height: 60vh;
         background-size: contain;
-        width: 100vw;
+        /* --- CHANGE THIS --- */
+        /* width: 100vw; */ /* Can cause overflow with scrollbars */
+        width: 100%;     /* Safer */
         background-repeat: no-repeat;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
         color: white;
+        position: relative; /* Added for stacking context */
     }
 
     .intro h1 {
@@ -150,85 +122,139 @@
         opacity: 0;
         z-index: 2;
         text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+        /* Add padding for text inside */
+        padding: 0 1rem;
     }
 
+    /* --- Video Container --- */
     .welcome-container {
-    position: relative;
-    min-height: 100vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    padding: 0;
-    overflow: hidden;
-}
+        position: relative;
+        min-height: 100vh; /* Or adjust as needed */
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        padding: 0; /* Keep padding 0 if video should fill */
+        overflow: hidden; /* Keep this */
+    }
 
-/* Background video */
-.welcome-container .bg-video {
-    position: absolute;
-top: 0;
+    .welcome-container .bg-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        padding-top: 100px; /* Ensure video covers the area */
+        z-index: 0; /* Behind overlay */
+    }
 
-    
-    left: 0;
-    height: 100%;
-    width: 100%;
+    .welcome-container .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        /* background: rgba(0, 0, 0, 0.5); */ /* Optional overlay */
+        z-index: 1; /* Above video */
+    }
 
-    z-index: 1;
-}
-
-/* Optional overlay for darkening the video */
-.welcome-container .video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 1;
-}
-
-
-.welcome-content h1,
-.welcome-content p,
-.welcome-content a {
-    opacity: 0;
-    animation: fadeInUp 5s ease-out forwards;
-}
-
-.welcome-content h1 {
-    animation-delay: 0.2s;
-}
-
-.welcome-content p {
-    animation-delay: 0.5s;
-}
-
-.welcome-content a {
-    animation-delay: 0.8s;
-}
-
+    /* --- Welcome Content Text Animations --- */
+    .welcome-content h1,
     .welcome-content p,
     .welcome-content a {
         opacity: 0;
         animation: fadeInUp 5s ease-out forwards;
+        position: relative; /* Ensure stacking above butterflies */
+        z-index: 1;         /* Ensure stacking above butterflies */
     }
+    .welcome-content h1 { animation-delay: 0.2s; }
+    .welcome-content p { animation-delay: 0.5s; }
+    .welcome-content a { animation-delay: 0.8s; }
 
 
-    /* Event Cards Section */
+    /* --- Event Cards Section --- */
     .event-card {
         margin-top: 3rem;
     }
-
     .event-card img {
         height: 180px;
         object-fit: cover;
     }
+
+    /* --- Container for cards --- */
+    .container.mt-5.event-card {
+       background-color: rgba(255, 255, 255, 0.85); /* Add slightly transparent background */
+       padding-top: 2rem;
+       padding-bottom: 2rem;
+       border-radius: 8px; /* Optional rounded corners */
+    }
+
+
+    /* --- MOBILE ADJUSTMENTS --- */
+    @media (max-width: 700px) {
+        .intro {
+            height: 40vh;
+            background-size: cover; /* Cover is usually better on mobile */
+        }
+        .intro h1 {
+            font-size: 1.5rem;
+        }
+
+        .welcome-content h1 {
+            font-size: 2.6rem;
+            /* padding: 0 1rem; */ /* Padding is now on .welcome-content itself */
+        }
+        .welcome-content p {
+            font-size: 1rem;
+             /* padding: 0 1rem; */ /* Padding is now on .welcome-content itself */
+        }
+
+        /* Keep butterfly size adjustment for mobile */
+        .butterfly {
+            width: 100px;
+            height: 100px;
+        }
+        /* Butterfly positions (% based) should adjust automatically */
+        /* .butterfly.b1, .butterfly.b2, .butterfly.b3 {
+            top: auto;
+            left: 30%;
+        } */ /* Remove this override if % positioning is okay */
+
+
+        .container.mt-5.event-card h1 { /* Target Events title */
+            font-size: 1.8rem;
+        }
+        .card-title { /* Target individual card title */
+            font-size: 1.2rem;
+        }
+        .card-text {
+            font-size: 0.9rem;
+        }
+        .card-img-top {
+            height: 150px;
+        }
+    }
+    /* Remove the duplicate body/html rules inside the media query if they existed */
+
 </style>
+<!-- Import Cursive Font if needed -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+    .cursive {
+        
+        font-family: 'Great Vibes', cursive;
+    }
+</style>
+
 {% endblock %}
 
 {% block content %}
+<!-- No structural changes needed in HTML block -->
 <div>
     <div class="welcome-content">
         <div class="butterfly-container">
@@ -238,32 +264,33 @@ top: 0;
         </div>
         <h1 class="cursive">We're so excited to share our special moments with you.</h1>
         <p class="lead mb-4">Take a look at our upcoming wedding events!</p>
-        
+
     </div>
     <!-- Intro Section with background image and animated text -->
     <div class="intro">
-        
+        <!-- You can add text back here if wanted -->
+         <!-- <h1 class="cursive">Save the Date!</h1> -->
     </div>
 
     <!-- Welcome Section -->
     <div class="welcome-container">
         <video autoplay muted loop playsinline class="bg-video">
-            <source src="/static/img/bg.mp4" type="video/mp4">
+            <source src="{{ url_for('static', filename='img/bg.mp4') }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-    
         <!-- Optional dark overlay -->
         <div class="video-overlay"></div>
-    
-        
+        <!-- Add content on top of video if desired -->
+        <!-- <div style="position: relative; z-index: 2; color: white; text-shadow: 1px 1px 3px black;">
+            <h2>Content Over Video</h2>
+        </div> -->
     </div>
-    
+
 <!-- Event Cards Section -->
-<div class="container mt-5 event-card">
+<div class="container mt-5 event-card"> <!-- Keep Bootstrap container -->
     <h1 class="text-center mb-5 cursive">Our Wedding Events</h1>
 
     <div class="row justify-content-center g-4"> <!-- g-4 adds gaps between columns -->
-
         {% for event_key, event_data in events.items() %}
         <div class="col-lg-4 col-md-6 mb-4"> <!-- Responsive columns -->
             <div class="card h-100 text-center shadow-sm">
@@ -286,10 +313,10 @@ top: 0;
             </div>
         </div>
         {% endfor %}
-
     </div>
 </div>
 
+</div>
 {% endblock %}
 
 {% block footer %}{# Optional: Footer content here #}{% endblock %}
