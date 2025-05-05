@@ -4,6 +4,80 @@
 
 {% block head_extra %}
 <style>
+    
+        /* --- Make welcome-content a positioning context --- */
+        .welcome-content {
+        position: relative; /* Needed for absolute positioning of butterflies */
+        z-index: 2;         /* Ensure text stays above butterflies/overlay */
+    }
+
+    /* --- Butterfly Animation --- */
+    @keyframes flyUpFlutter {
+        0% {
+            opacity: 0;
+            transform: translateY(30px) translateX(0px) rotate(0deg) scale(0.8);
+        }
+        20% { /* Appear quickly */
+            opacity: 1;
+            transform: translateY(0px) translateX(-5px) rotate(-10deg) scale(1);
+        }
+        50% {
+             transform: translateY(-40px) translateX(5px) rotate(10deg) scale(1.1);
+        }
+        80% {
+            opacity: 1;
+             transform: translateY(-80px) translateX(-5px) rotate(-5deg) scale(1);
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(-120px) translateX(0px) rotate(5deg) scale(0.5); /* Fly higher and fade out */
+        }
+    }
+
+    /* --- Butterfly Container & Butterflies --- */
+    .butterfly-container {
+        position: absolute;
+        bottom: -20px; /* Start slightly below the text's initial position */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1500px; /* Adjust width as needed */
+        height: 80px; /* Adjust height as needed */
+        z-index: 0; /* Below the text content (z-index 2) */
+        pointer-events: none; /* Don't block clicks */
+    }
+
+    .butterfly {
+        position: absolute;
+        width: 250px; /* Size of butterfly */
+        height: 250px;
+        /* !!! IMPORTANT: Make sure you have this image !!! */
+        background-image: url('{{ url_for('static', filename='img/butterfly.jpg') }}');
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0; /* Start hidden */
+        animation: flyUpFlutter 3.5s ease-out forwards; /* Duration matches text fade roughly */
+    }
+
+    /* Position and delay individual butterflies */
+    .butterfly.b1 {
+        top: 60%;
+        left: 15%;
+        animation-delay: 0.6s; /* Start slightly after text starts moving (adjust delay based on fadeInUp) */
+    }
+
+    .butterfly.b2 {
+        top: 40%;
+        left: 45%;
+        animation-delay: 0.8s; /* Stagger start times */
+        transform: scale(1.1); /* Slightly bigger */
+    }
+
+    .butterfly.b3 {
+        top: 65%;
+        left: 75%;
+        animation-delay: 0.7s;
+        transform: scale(0.9); /* Slightly smaller */
+    }
     @keyframes fadeInUp {
         0% {
             opacity: 0;
@@ -27,10 +101,33 @@
     }
 
     body, html {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    width: 100%;
+    background-image: url("/static/img/bgimg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    align-items:center;
+}
+
+@media (max-width: 700px) {
+    body, html {
         margin: 0;
-        padding: 0;
-        height: 100%;
+    padding: 0;
+    min-height: 100vh;
+    width: 100%;
+    background-image: url("/static/img/bgimg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    align-items:center;
+        
     }
+}
 
     /* Fullscreen Intro with BG Image */
     .intro {
@@ -65,19 +162,21 @@
     justify-content: center;
     text-align: center;
     color: white;
-    padding: 2rem;
+    padding: 0;
     overflow: hidden;
 }
 
 /* Background video */
 .welcome-container .bg-video {
-    position: absolute; 
-    top: 0;
+    position: absolute;
+top: 0;
+
+    
     left: 0;
     height: 100%;
     width: 100%;
-    background-color:white;
-    z-index: 0;
+
+    z-index: 1;
 }
 
 /* Optional overlay for darkening the video */
@@ -87,14 +186,9 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background: rgba(0, 0, 0, 0.5);
     z-index: 1;
 }
 
-.welcome-content {
-    position: relative;
-    z-index: 2;
-}
 
 .welcome-content h1,
 .welcome-content p,
@@ -136,6 +230,16 @@
 
 {% block content %}
 <div>
+    <div class="welcome-content">
+        <div class="butterfly-container">
+            <div class="butterfly b1"></div>
+            <div class="butterfly b2"></div>
+            <div class="butterfly b3"></div>
+        </div>
+        <h1 class="cursive">We're so excited to share our special moments with you.</h1>
+        <p class="lead mb-4">Take a look at our upcoming wedding events!</p>
+        
+    </div>
     <!-- Intro Section with background image and animated text -->
     <div class="intro">
         
@@ -151,10 +255,7 @@
         <!-- Optional dark overlay -->
         <div class="video-overlay"></div>
     
-        <div class="welcome-content">
-            <h1 class="cursive">We're so excited to share our special moments with you.</h1>
-            <p class="lead mb-4">Take a look at our upcoming wedding events!</p>
-        </div>
+        
     </div>
     
 <!-- Event Cards Section -->
