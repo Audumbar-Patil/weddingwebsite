@@ -29,16 +29,23 @@
                            View Details & Upload Photos
                        </a>
                     </div>
-                    <div class="mt-auto">
-                        <a href="{{ url_for('show_event', event_name=event_key) }}" class="btn btn-outline-primary">
+                    <div class="mt-3 ">
+                        <a href="youtube.com" class="btn btn-outline-danger">
                             LIVE
                         </a>
                      </div>
                 </div>
             </div>
+            
         </div>
+        
         {% endfor %}
 
     </div>
+    <div class="mt-3" style="text-align: center; align-items: center;">
+                        <a href="{{url_for('index')}}" class="btn btn-outline-primary">
+                            HOME
+                        </a>
+                     </div>
 </div>
 {% endblock %}
