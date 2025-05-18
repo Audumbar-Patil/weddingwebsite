@@ -55,10 +55,10 @@ event_details = {
     "haldi": {
         "title": "Haldi Ceremony",
         "description": "Join us for the vibrant and joyful Haldi ceremony...",
-        "date": "Friday, October 25, 2024",
-        "time": "11:00 AM onwards",
-        "venue": "The Grand Hall - Garden Area",
-        "venue_maps_link": "https://maps.google.com/?q=...",
+        "date": "Monday, May 19, 2025",
+        "time": "4:00 PM onwards",
+        "venue": "Parana Resorts and Banquets, Ravet. S/No. 421, Sameer Lawns Backside, 1A/1, Mumbai-Pune Highway, Ravet, Pimpri-Chinchwad, PUNE-412101",
+        "venue_maps_link": "https://www.google.com/maps/dir//SURVEY+NO+421,+SAMEER,+LAWNS+BACKSIDE,+1A%2F1,+MUMBAI+PUNE,+HIGHWAY,+Ravet,+Pimpri-Chinchwad,+Maharashtra+412101/@18.6454226,73.6515076,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bc2bb005009d573:0x6180a5ff5e2e0426!2m2!1d73.7339093!2d18.6454405?entry=ttu&g_ep=EgoyMDI1MDUxMy4xIKXMDSoASAFQAw%3D%3D",
         "bg_image_path": "img/haldi_bg.jpg",        # Used in event.html
         "card_image_path": "img/haldi_card.jpg",
         "details": "The engagement ceremony marks the formal agreement to wed. Historically, it involved the exchange of rings or gifts as a promise of marriage. Our ceremony will blend traditional customs with modern celebration."
@@ -66,10 +66,10 @@ event_details = {
     "sangeet": {
         "title": "Sangeet Night",
         "description": "Get ready to dance the night away...",
-        "date": "Saturday, October 26, 2024",
-        "time": "7:00 PM onwards",
-        "venue": "The Crystal Ballroom",
-        "venue_maps_link": "https://maps.google.com/?q=...",
+        "date": "Monday, May 19, 2025",
+        "time": "8:00 PM onwards",
+        "venue": "Parana Resorts and Banquets, Ravet. S/No. 421, Sameer Lawns Backside, 1A/1, Mumbai-Pune Highway, Ravet, Pimpri-Chinchwad, PUNE-412101",
+        "venue_maps_link": "https://www.google.com/maps/dir//SURVEY+NO+421,+SAMEER,+LAWNS+BACKSIDE,+1A%2F1,+MUMBAI+PUNE,+HIGHWAY,+Ravet,+Pimpri-Chinchwad,+Maharashtra+412101/@18.6454226,73.6515076,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bc2bb005009d573:0x6180a5ff5e2e0426!2m2!1d73.7339093!2d18.6454405?entry=ttu&g_ep=EgoyMDI1MDUxMy4xIKXMDSoASAFQAw%3D%3D",
         "bg_image_path": "img/sangeet_bg.jpg",
         "card_image_path": "img/sangeet_card.jpg",
         "details": "The engagement ceremony marks the formal agreement to wed. Historically, it involved the exchange of rings or gifts as a promise of marriage. Our ceremony will blend traditional customs with modern celebration."
@@ -77,10 +77,10 @@ event_details = {
     "wedding": {
         "title": "Wedding Ceremony & Reception",
         "description": "Witness our union as we exchange vows...",
-        "date": "Sunday, October 27, 2024",
-        "time": "5:00 PM (Ceremony), 7:30 PM (Reception)",
-        "venue": "Oceanview Banquet Center",
-        "venue_maps_link": "https://maps.google.com/?q=...",
+        "date": "Tuesday, May 20, 2025",
+        "time": "12:40 PM onwards",
+        "venue": "Parana Resorts and Banquets, Ravet.  S/No. 421, Sameer Lawns Backside, 1A/1, Mumbai-Pune Highway, Ravet, Pimpri-Chinchwad, PUNE-412101",
+        "venue_maps_link": "https://www.google.com/maps/dir//SURVEY+NO+421,+SAMEER,+LAWNS+BACKSIDE,+1A%2F1,+MUMBAI+PUNE,+HIGHWAY,+Ravet,+Pimpri-Chinchwad,+Maharashtra+412101/@18.6454226,73.6515076,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bc2bb005009d573:0x6180a5ff5e2e0426!2m2!1d73.7339093!2d18.6454405?entry=ttu&g_ep=EgoyMDI1MDUxMy4xIKXMDSoASAFQAw%3D%3D",
         "bg_image_path": "img/wedding_bg.jpg",
         "card_image_path": "img/wedding_card.jpg",
         "details": "The engagement ceremony marks the formal agreement to wed. Historically, it involved the exchange of rings or gifts as a promise of marriage. Our ceremony will blend traditional customs with modern celebration."
